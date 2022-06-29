@@ -8,7 +8,6 @@ playerLivesCount.textContent = playerLives;
 // GENERATE THE DATA
 const getData = () => [
   { imgSrc: "./images/apple.jpg", name: "apple" },
-  { imgSrc: "./images/avocado.jpg", name: "avocado" },
   { imgSrc: "./images/banana.jpg", name: "banana" },
   { imgSrc: "./images/cherry.jpg", name: "cherry" },
   { imgSrc: "./images/kiwi.jpg", name: "kiwi" },
@@ -17,7 +16,6 @@ const getData = () => [
   { imgSrc: "./images/pomegranate.jpg", name: "pomegranate" },
   { imgSrc: "./images/watermelon.jpg", name: "watermelon" },
   { imgSrc: "./images/apple.jpg", name: "apple" },
-  { imgSrc: "./images/avocado.jpg", name: "avocado" },
   { imgSrc: "./images/banana.jpg", name: "banana" },
   { imgSrc: "./images/cherry.jpg", name: "cherry" },
   { imgSrc: "./images/kiwi.jpg", name: "kiwi" },
@@ -31,6 +29,27 @@ const getData = () => [
 const randomize = () => {
   const cardData = getData();
   cardData.sort(() => Math.random() - 0.5);
+  return cardData;
 };
 
-randomize();
+// CARD GENERATOR FUNCTION
+const cardGenerator = () => {
+  const cardData = randomize();
+  // GENERATE THE HTML
+  cardData.forEach((item) => {
+    const card = document.createElement("div");
+    const face = document.createElement("img");
+    const back = document.createElement("div");
+    card.classList = "card";
+    face.classList = "face";
+    back.classList = "back";
+    // ATTACH THE INFO TO THE CARDS
+    face.src = item.imgSrc;
+    // ATTACH THE CARDS TO THE SECTION
+    section.appendChild(card);
+    card.appendChild(face);
+    card.appendChild(back);
+  });
+};
+
+cardGenerator();
