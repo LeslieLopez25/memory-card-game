@@ -45,6 +45,7 @@ const cardGenerator = () => {
     back.classList = "back";
     // ATTACH THE INFO TO THE CARDS
     face.src = item.imgSrc;
+    card.setAttribute("name", item.name);
     // ATTACH THE CARDS TO THE SECTION
     section.appendChild(card);
     card.appendChild(face);
@@ -52,8 +53,34 @@ const cardGenerator = () => {
 
     card.addEventListener("click", (e) => {
       card.classList.toggle("toggleCard");
+      checkCards(e);
     });
   });
+};
+// CHECK CARDS
+const checkCards = (e) => {
+  const clickedCard = e.target;
+  clickedCard.classList.add("flipped");
+  const flippedCards = document.querySelectorAll(".flipped");
+  // LOGIC
+  if (flippedCards.length === 2) {
+    if (
+      flippedCards[0].getAttribute("name") ===
+      flippedCards[1].getAttribute("name")
+    ) {
+      console.log("match");
+      flippedCards.forEach((card) => {
+        card.classList.remove("flipped");
+        card.style.pointerEvents = "none";
+      });
+    } else {
+      console.log("wrong");
+      flippedCards.forEach((card) => {
+        card.classList.remove("flipped");
+        setTimeout(() => card.classList.remove("toggleCard"), 1000);
+      });
+    }
+  }
 };
 
 cardGenerator();
